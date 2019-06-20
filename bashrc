@@ -100,8 +100,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f ~/dotfiles/bash_aliases ]; then
+    . ~/dotfiles/bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -121,3 +121,28 @@ if [ -f ~/dotfiles/gitrc ]; then
     . ~/dotfiles/gitrc
 fi
 
+# User specific environment
+set -o vi
+export JAVA_HOME=$HOME/prods/jdk1.8.0_102
+PATH="/opt/Citrix/ICAClient:$JAVA_HOME/bin:$HOME/prods/apache-ant-1.10.5/bin:$HOME/.local/bin:$HOME/bin:$PATH:."
+PATH=/home/prince/prods/android-studio/bin:$PATH
+export PATH
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+
+PATH="/home/prince/go/bin:/home/prince/prods/netbeans-8.2/bin:/home/prince/Android/Sdk/platform-tools:/home/prince/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/prince/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/prince/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/prince/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/prince/perl5"; export PERL_MM_OPT;
+
+export CHANGE_MINIKUBE_NONE_USER=true
+alias kcdebug='kubectl run -i --rm --tty debug --image=busybox --restart=Never -- sh '
+
+#export EXTERNAL_DNS_GODADDY_API_KEY=VXplNk4yODRfWHZDbzdiTXF4eXBIdXFMVWtZUTl5VQ==
+#export EXTERNAL_DNS_GODADDY_API_SECRET=WHZETUpBamZMWXJMS281MTY4a0pxOA==
+export EXTERNAL_DNS_GODADDY_API_KEY=Uze6N284_QUCCiBDQ4QfBhkuUfwS5jf
+export EXTERNAL_DNS_GODADDY_API_SECRET=QUDLu7G7CL4E3zssn9ZGDF

@@ -1,3 +1,6 @@
-
 alias ce='cd ~/dev/elixir'
 alias vi='vim'
+alias cdev='cd ~/dev'
+alias cpfs='cd ~/dev/pfs'
+alias ckube='cd ~/dev/kube'
+alias cwebpack='cd ~/dev/kube/pfs-k8s/webpackage'
