@@ -118,7 +118,7 @@ fi
 
 
 if [ -f ~/dotfiles/gitrc ]; then
-    . ~/dotfiles/gitrc
+#    . ~/dotfiles/gitrc
 fi
 
 # User specific environment

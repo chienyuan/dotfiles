@@ -1,4 +1,16 @@
-. /usr/share/git-core/contrib/completion/git-prompt.sh
+
+_myos="$(uname)"
+
+case $_myos in 
+  Linux) source /usr/share/git-core/contrib/completion/git-prompt.sh ;;
+  Darwin)
+  if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+    __GIT_PROMPT_DIR="/usr/local/opt/bash-git-prompt/share"
+    source "/usr/local/opt/bash-git-prompt/share/gitprompt.sh"
+  fi ;;
+  *) ;;
+esac
+
 export PS1='[\u@\h \W$(declare -F __git_ps1 &>/dev/null && __git_ps1 " (%s)")]\$ '
 
 export PATH=$PATH:.
