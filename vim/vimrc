@@ -1,6 +1,6 @@
 set nocompatible              " be iMproved, required
 
-so ~/.vim/plugins.vim
+"so ~/.vim/plugins.vim
 
 filetype plugin indent on    " required
 syntax on
@@ -10,7 +10,7 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 inoremap jk <Esc>
-inoremap <Esc> <NOP>
+"inoremap <Esc> <NOP>
 nnoremap ,r :.w !bash<CR>
 set relativenumber
 set tabstop=4

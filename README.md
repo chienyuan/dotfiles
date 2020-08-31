@@ -1,7 +1,8 @@
 
 # My Dotfile
 
-The .bash_profile call .bashrc
+## .bashrc and .gitconfig
+
 ```bash
 mv $HOME/.bashrc $HOME/.bashrc.save
 ln -s dotfiles/bashrc $HOME/.bashrc
@@ -9,15 +10,31 @@ ln -s dotfiles/gitconfig $HOME/.gitconfig
 ```
 dotfiles/bashrc call dotfiles/gitrc for git prompt
 
-install vim-plug
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+## vim-packages
 
-run :PlugInstall
+```
+cd ~/dotfiles
+git submodule init
+git submodule add git@github.com:preservim/nerdtree.git vim/pack/eric/start/nerdtree
+git add .gitmodules vim/pack/eric/start/nerdtree
+git commit
+```
 
-coc plugin need node
-Install nodejs >= 10.12
+updating packages
+
 ```
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-sudo apt-get install -y nodejs
+git submodule update --remote --merge
+git commit
 ```
+
+removing a package
+
+```
+git submodule deinit vim/pack/eric/start/nerdtree
+git rm vim/pack/eric/start/nerdtree
+rm -Rf .git/modules/vim/pack/eric/start/nerdtree
+git commit
+```
+
+
+
