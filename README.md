@@ -3,6 +3,7 @@
 
 The .bash_profile call .bashrc
 ```bash
+mv $HOME/.bashrc $HOME/.bashrc.save
 ln -s dotfiles/bashrc $HOME/.bashrc
 ln -s dotfiles/gitconfig $HOME/.gitconfig
 ```
