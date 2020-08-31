@@ -20,9 +20,17 @@ git add .gitmodules vim/pack/eric/start/nerdtree
 git commit
 ```
 
+get the submodule if you didn't get it yet
+
+
+```
+git submodule update --init
+```
+
 updating packages
 
 ```
+git submodule update 
 git submodule update --remote --merge
 git commit
 ```
