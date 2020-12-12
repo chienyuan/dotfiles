@@ -118,10 +118,10 @@ fi
 
 # User specific environment
 set -o vi
-export JAVA_HOME=$HOME/prods/jdk1.8.0_102
-PATH="/opt/Citrix/ICAClient:$JAVA_HOME/bin:$HOME/prods/apache-ant-1.10.5/bin:$HOME/.local/bin:$HOME/bin:$PATH:."
-PATH=/home/prince/prods/android-studio/bin:$PATH
-export PATH
+# export JAVA_HOME=$HOME/prods/jdk1.8.0_102
+# PATH="/opt/Citrix/ICAClient:$JAVA_HOME/bin:$HOME/prods/apache-ant-1.10.5/bin:$HOME/.local/bin:$HOME/bin:$PATH:."
+# PATH=/home/prince/prods/android-studio/bin:$PATH
+# export PATH
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
@@ -133,11 +133,23 @@ PERL5LIB="/home/prince/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LI
 PERL_LOCAL_LIB_ROOT="/home/prince/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/prince/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/prince/perl5"; export PERL_MM_OPT;
-
 export CHANGE_MINIKUBE_NONE_USER=true
 alias kcdebug='kubectl run -i --rm --tty debug --image=busybox --restart=Never -- sh '
 
-#export EXTERNAL_DNS_GODADDY_API_KEY=VXplNk4yODRfWHZDbzdiTXF4eXBIdXFMVWtZUTl5VQ==
-#export EXTERNAL_DNS_GODADDY_API_SECRET=WHZETUpBamZMWXJMS281MTY4a0pxOA==
-export EXTERNAL_DNS_GODADDY_API_KEY=Uze6N284_QUCCiBDQ4QfBhkuUfwS5jf
-export EXTERNAL_DNS_GODADDY_API_SECRET=QUDLu7G7CL4E3zssn9ZGDF
+
+alias k=kubectl
+source <(kubectl completion bash | sed s/kubectl/k/g)
+
+#Virtualenvwrapper settings:
+export WORKON_HOME=$HOME/.virtualenvs
+VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+. $HOME/.local/bin/virtualenvwrapper.sh
+
+git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \$(git_branch)\$ "
+
+
+export GOPATH=$HOME/go
