@@ -1,6 +1,6 @@
 set nocompatible              " be iMproved, required
 
-so ~/.vim/plugins.vim
+"so ~/.vim/plugins.vim
 
 filetype plugin indent on    " required
 syntax on
@@ -10,9 +10,11 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 inoremap jk <Esc>
-inoremap <Esc> <NOP>
+"inoremap <Esc> <NOP>
 nnoremap ,r :.w !bash<CR>
-set relativenumber
+" Fix paste bug triggered by the above inoremaps
+set t_BE=
+set relativenumber number
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
@@ -99,3 +101,9 @@ map <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>w <C-w>
 
 set laststatus=2
+
+" buffer
+nnoremap <F5> :buffers<CR>:buffer<Space>
+
+let g:slime_target = "tmux"
+nnoremap <leader>l :set invnumber invrelativenumber<CR>
