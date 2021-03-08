@@ -47,6 +47,8 @@ link: stow-$(OS)
 	git submodule update --init
 
 unlink: stow-$(OS)
+	stow --delete tmux
+	stow --delete  vim
 	stow --delete -t $(HOME) runcom
 	stow --delete -t $(XDG_CONFIG_HOME) config
 	for FILE in $$(\ls -A runcom); do if [ -f $(HOME)/$$FILE.bak ]; then \
