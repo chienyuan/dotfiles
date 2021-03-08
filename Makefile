@@ -17,10 +17,10 @@ linux: core-linux link
 
 core-macos: brew bash git npm ruby
 
-core-linux:
-	apt-get update
-	apt-get upgrade -y
-	apt-get dist-upgrade -f
+core-linux: npm
+	sudo apt-get update
+	sudo apt-get upgrade -y
+	sudo apt-get dist-upgrade -f
 
 stow-macos: brew
 	is-executable stow || brew install stow
@@ -42,6 +42,9 @@ link: stow-$(OS)
 	mkdir -p $(XDG_CONFIG_HOME)
 	stow -t $(HOME) runcom
 	stow -t $(XDG_CONFIG_HOME) config
+	stow vim
+	stow tmux
+	git submodule update --init
 
 unlink: stow-$(OS)
 	stow --delete -t $(HOME) runcom

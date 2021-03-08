@@ -1,6 +1,16 @@
 
 # My Dotfile
 
+## Installation
+
+1. clone into the desired location:
+
+```bash
+git clone git@github.com:chienyuan/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+make
+```
+
 ## .bashrc and .gitconfig
 
 ```bash
