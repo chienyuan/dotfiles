@@ -1,3 +1,4 @@
 system/.custom
 *.swp
 vim/.netrwhist
+vim/.vim/pack/eric/*

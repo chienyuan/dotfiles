@@ -11,25 +11,17 @@ cd ~/.dotfiles
 make
 ```
 
-## .bashrc and .gitconfig
-
-```bash
-mv $HOME/.bashrc $HOME/.bashrc.save
-ln -s dotfiles/bashrc $HOME/.bashrc
-ln -s dotfiles/gitconfig $HOME/.gitconfig
-```
-dotfiles/bashrc call dotfiles/gitrc for git prompt
 
 ## vim-packages
 
 ```
 cd ~/dotfiles
 git submodule init
-git submodule add git@github.com:preservim/nerdtree.git vim/pack/eric/start/nerdtree
-git add .gitmodules vim/pack/eric/start/nerdtree
-git submodule add git@github.com:moll/vim-bbye.git vim/pack/eric/start/vim-bbye
-git submodule add git@github.com:simeji/winresizer.git vim/pack/eric/start/winresizer
-git submodule add git@github.com:junegunn/fzf.vim.git  vim/pack/eric/start/fzf
+git submodule add git@github.com:preservim/nerdtree.git vim/.vim/pack/eric/start/nerdtree
+git submodule add git@github.com:moll/vim-bbye.git      vim/.vim/pack/eric/start/vim-bbye
+git submodule add git@github.com:simeji/winresizer.git  vim/.vim/pack/eric/start/winresizer
+git submodule add git@github.com:junegunn/fzf.vim.git   vim/.vim/pack/eric/start/fzf
+sudo apt install fzf
 brew install fzf
 git commit
 ```
@@ -48,6 +40,14 @@ git commit
 
 get the submodule if you didn't get it yet
 
+## .bashrc and .gitconfig
+
+```bash
+mv $HOME/.bashrc $HOME/.bashrc.save
+ln -s dotfiles/bashrc $HOME/.bashrc
+ln -s dotfiles/gitconfig $HOME/.gitconfig
+```
+dotfiles/bashrc call dotfiles/gitrc for git prompt
 
 ```
 git submodule update --init
