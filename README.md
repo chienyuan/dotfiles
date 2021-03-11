@@ -27,6 +27,10 @@ cd ~/dotfiles
 git submodule init
 git submodule add git@github.com:preservim/nerdtree.git vim/pack/eric/start/nerdtree
 git add .gitmodules vim/pack/eric/start/nerdtree
+git submodule add git@github.com:moll/vim-bbye.git vim/pack/eric/start/vim-bbye
+git submodule add git@github.com:simeji/winresizer.git vim/pack/eric/start/winresizer
+git submodule add git@github.com:junegunn/fzf.vim.git  vim/pack/eric/start/fzf
+brew install fzf
 git commit
 ```
 
