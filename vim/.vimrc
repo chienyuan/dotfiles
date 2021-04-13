@@ -108,3 +108,4 @@ nnoremap <F5> :buffers<CR>:buffer<Space>
 
 let g:slime_target = "tmux"
 nnoremap <leader>l :set invnumber invrelativenumber<CR>
+nnoremap ,gr :!%:p<CR>

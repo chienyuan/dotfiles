@@ -15,6 +15,12 @@ git submodule update --init
 git submodule update
 ```
 
+Error
+=====
+stow -t /home/prince runcom
+WARNING! stowing runcom would cause conflicts:                                                                                          │····
+  * existing target is not owned by stow: .bashrc
+Ans: unlink previous dot file , ex .bashrc -> dotfiles/bashrc
 
 ## vim-packages
 
