@@ -25,6 +25,7 @@ git submodule add git@github.com:preservim/nerdtree.git vim/.vim/pack/eric/start
 git submodule add git@github.com:moll/vim-bbye.git      vim/.vim/pack/eric/start/vim-bbye
 git submodule add git@github.com:simeji/winresizer.git  vim/.vim/pack/eric/start/winresizer
 git submodule add git@github.com:junegunn/fzf.vim.git   vim/.vim/pack/eric/start/fzf
+git submodule add git@github.com:hwayne/tla.vim.git     vim/.vim/pack/eric/start/tla
 sudo apt install fzf
 brew install fzf
 git commit
