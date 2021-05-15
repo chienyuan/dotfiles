@@ -105,11 +105,9 @@ set laststatus=2
 
 " buffer
 nnoremap <F5> :buffers<CR>:buffer<Space>
-
 let g:slime_target = "tmux"
 nnoremap <leader>l :set invnumber invrelativenumber<CR>
 nnoremap <leader>gr :!%:p<CR>
-
 let g:snipMate = { 'snippet_version': 1 }
 nnoremap <leader>t :!tlc %:p<CR>
 nnoremap <leader>c :!pcal %:p<CR>

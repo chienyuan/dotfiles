@@ -12,3 +12,9 @@
   br = branch
   st = status
 
+[status]
+	submoduleSummary = true
+[diff]
+	submodule = log
+[init]
+	defaultBranch = main
