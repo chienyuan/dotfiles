@@ -1,0 +1,20 @@
+## Main
+# module
+snippet module
+	---- MODULE ${1:module_name} ----
+	
+	EXTENDS TLC,Naturals
+	(* --algorithm ${1:algorithm_name}
+	begin
+	\\* PlusCal code
+	${2:code}
+	end algorithm; *)
+	====
+
+snippet define
+	define
+	${1:op}
+	end define
+
+snippet v
+	variables ${1:x};
