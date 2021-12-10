@@ -15,6 +15,12 @@ git submodule update --init
 git submodule update
 ```
 
+Error
+=====
+stow -t /home/prince runcom
+WARNING! stowing runcom would cause conflicts:                                                                                          │····
+  * existing target is not owned by stow: .bashrc
+Ans: unlink previous dot file , ex .bashrc -> dotfiles/bashrc
 
 ## vim-packages
 
@@ -25,6 +31,13 @@ git submodule add git@github.com:preservim/nerdtree.git vim/.vim/pack/eric/start
 git submodule add git@github.com:moll/vim-bbye.git      vim/.vim/pack/eric/start/vim-bbye
 git submodule add git@github.com:simeji/winresizer.git  vim/.vim/pack/eric/start/winresizer
 git submodule add git@github.com:junegunn/fzf.vim.git   vim/.vim/pack/eric/start/fzf
+git submodule add git@github.com:hwayne/tla.vim.git     vim/.vim/pack/eric/start/tla
+git submodule add https://github.com/tomtom/tlib_vim.git vim/.vim/pack/eric/start/tlib_vim
+git submodule add https://github.com/MarcWeber/vim-addon-mw-utils.git vim/.vim/pack/eric/start/vim-addon-mw-utils
+git submodule add https://github.com/garbas/vim-snipmate.git vim/.vim/pack/eric/start/vim-snipmate
+git submodule add https://github.com/honza/vim-snippets.git vim/.vim/pack/eric/start/vim-snippets
+git submodule add git@github.com:hwayne/tla.vim.git vim/.vim/pack/eric/start/tla.vim
+git submodule add https://github.com/itchyny/lightline.vim.git vim/.vim/pack/eric/start/lightline
 sudo apt install fzf
 brew install fzf
 git commit
