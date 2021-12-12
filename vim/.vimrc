@@ -105,6 +105,8 @@ set laststatus=2
 
 " buffer
 nnoremap <F5> :buffers<CR>:buffer<Space>
+nnoremap <leader>b :buffers<CR>:buffer<Space>
+
 let g:slime_target = "tmux"
 nnoremap <leader>l :set invnumber invrelativenumber<CR>
 nnoremap <leader>gr :!%:p<CR>
