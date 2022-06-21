@@ -113,3 +113,6 @@ nnoremap <leader>gr :!%:p<CR>
 let g:snipMate = { 'snippet_version': 1 }
 nnoremap <leader>t :!tlc %:p<CR>
 nnoremap <leader>c :!pcal %:p<CR>
+
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/'}]
+
