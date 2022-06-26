@@ -1,15 +1,15 @@
 #!/usr/bin/perl 
-#
-
 use strict;
 use warnings;
 use POSIX qw(strftime);
-use DateTime;
+
+# FIXME: DateTime not work for perl 5.8.8
+#use DateTime;
 
 # time table
 # | Time | Task | Description
 # | 11:10| time tracking | study
-# | 12:52| lunch | 
+# | 12:52| break |  lunch
 # | 13:17| time tracking | 
 # | 14:31-14:59| break|
 # | 15:21| ser12345| works. 
@@ -19,27 +19,39 @@ use DateTime;
 # 3. if pre_task is range, ignore caculate pre_task
 
 
-my $wiki_diary_path = "$ENV{HOME}/Dropbox/vimwiki/diary"; 
-#my $today = strftime "%F", localtime;
+my $wiki_diary_path = "$ENV{HOME}/dev/vimwiki/diary"; 
+my $today = strftime "%F", localtime;
 my %tasks = ();
 my $debug = 0;
-my $task_max_length = 0;
+my $task_max_length = 18;
+
+use constant ONE_DAY => 24 * 60 * 60;
 
 
-my $today = DateTime->today(time_zone => 'local');
-my $yesterday = $today->clone->add(days => -1);
 
+############################################################3
+# FIXME: DateTime not work for perl 5.8.8
+#my $today = DateTime->today(time_zone => 'local');
+#my $yesterday = $today->clone->add(days => -1);
+#
 # show a week reports
+#for( my $i = 6 ; $i >= 0 ; $i--){
+#    my $day = $today->clone->add(days => -1 * $i);
+#    &report($day->ymd);
+#}
+############################################################3
+
 for( my $i = 6 ; $i >= 0 ; $i--){
-    my $day = $today->clone->add(days => -1 * $i);
-    &report($day->ymd);
+    my @report_time = localtime time - ( $i * ONE_DAY) ;
+    my $day = strftime "%F", @report_time;
+    &report($day);
 }
 
+#&report($today);
 
 sub report {
     my ($date) = @_;
     %tasks = ();
-    $task_max_length = 0;
 
     my $wiki_filepath = "$wiki_diary_path/${date}.wiki";
 
@@ -145,10 +157,19 @@ sub report {
     print "\nSummary: $date\n";
     print "| Task" . " "x($task_max_length-3) . "| Time\n";
     print "| " . "-"x($task_max_length) . " | ----\n";
-    foreach my $key ( sort { $tasks{$b} <=> $tasks{$a}}  keys %tasks ) {
+    my $total = 0;
+    my $break  = 0;
+			foreach my $key ( sort { $tasks{$b} <=> $tasks{$a}}  keys %tasks ) {
         my $value = $tasks{$key};
-        print "| $key | " . sprintf("%.2f",$value/60) . "\n";
+        my $hours = sprintf("%.2f",$value/60);
+        $total += $hours;
+        print "| $key | $hours \n";
+        $key =~ s/^\s+|\s+$//;
+		  	$break += $hours if $key eq "break" or $key eq  "lunch" or $key eq "commute" ;
     }
+    
+    print "| " . "-"x($task_max_length) . " | ----\n";
+    print "| Total without break". " "x($task_max_length-18)  . "| " . ($total-$break) . " \n";
 
     close($wiki_fh);
 }
