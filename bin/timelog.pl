@@ -13,6 +13,7 @@ use POSIX qw(strftime);
 # | 13:17| time tracking | 
 # | 14:31-14:59| break|
 # | 15:21| ser12345| works. 
+# | 99:99| end | it is current time, for real time check, should delete at the end of date.
 #
 # How to handle time range?
 # 1. caculate the current range task time. 
@@ -20,10 +21,12 @@ use POSIX qw(strftime);
 
 
 my $wiki_diary_path = "$ENV{HOME}/dev/vimwiki/diary"; 
+$wiki_diary_path = $ENV{'TIMELOG_DIR'} if  defined $ENV{'TIMELOG_DIR'};
+
 my $today = strftime "%F", localtime;
 my %tasks = ();
+my %descs = (); # use desc ask key , and task as value, when report , show all the key for that task
 my $debug = 0;
-my $task_max_length = 18;
 
 use constant ONE_DAY => 24 * 60 * 60;
 
@@ -50,8 +53,11 @@ for( my $i = 6 ; $i >= 0 ; $i--){
 #&report($today);
 
 sub report {
+    my $task_max_length = 17;
+    my $desc_max_length = 100;
     my ($date) = @_;
     %tasks = ();
+    %descs = ();
 
     my $wiki_filepath = "$wiki_diary_path/${date}.wiki";
 
@@ -66,6 +72,7 @@ sub report {
     my $pre_task_range = 0;
     my $task_range = 0;
     my $pre_task;
+    my $pre_desc;
     my $pre_time;
 
     while(<$wiki_fh>){
@@ -82,15 +89,19 @@ sub report {
         next if $data[1] !~ /^\d{2}:\d{2}/;
 
         ################
-        # Get Task
+        # Get Task and Desc
         ################
         $data[2] =~ s/^\s+|\s+$//;
+        $data[3] =~ s/^\s+|\s+$//;
+        if ( length($data[2]) > $task_max_length ) {
+            $task_max_length = length($data[2]);
+        }
 
         # check if task is range, if range task we just add to hash
         if( $data[1] =~ /(.*)\-(.*)/ ) {
             my $time_diff = &timediff($2,$1);
             print "[range task] $data[2]: $2 - $1 = $time_diff\n" if $debug;
-            &addtime($data[2],$time_diff);
+            &addtime($data[2],$time_diff,$data[3]);
             $task_range = 1;
         } else {
             $task_range = 0;
@@ -101,6 +112,7 @@ sub report {
         if( not defined($pre_task) ){
             $pre_time = $data[1];
             $pre_task = $data[2];
+            $pre_desc = $data[3];
             # if first task is range, it doesn't matter want's in pre_time, because we don't need to count range task.
             if ( $task_range ) {
                 $data[1] =~/(.*)\-(.*)/;
@@ -131,7 +143,7 @@ sub report {
         if( not $pre_task_range ) {
           my $time_diff = &timediff($cur_time,$pre_time);
           print "$pre_task: $cur_time - $pre_time = $time_diff\n" if $debug;
-          &addtime($pre_task,$time_diff);
+          &addtime($pre_task,$time_diff,$pre_desc);
         }
 
         # save current task to pre_task, but if current task is range, it need to use second part of data[1] 
@@ -142,6 +154,7 @@ sub report {
         }
 
         $pre_task = $data[2];
+        $pre_desc = $data[3];
 
         # save task_range for pre_task_range
         if( $task_range ) {
@@ -155,21 +168,32 @@ sub report {
 
     print "task max length=$task_max_length \n" if $debug;
     print "\nSummary: $date\n";
-    print "| Task" . " "x($task_max_length-3) . "| Time\n";
-    print "| " . "-"x($task_max_length) . " | ----\n";
+    print "| Task" . " "x($task_max_length-5) . "|  Time | Desc\n";
+    print "| " . "-"x($task_max_length-2) . " | ----- |" . "-" x ($desc_max_length) . "\n";
     my $total = 0;
     my $break  = 0;
-			foreach my $key ( sort { $tasks{$b} <=> $tasks{$a}}  keys %tasks ) {
+	foreach my $key ( sort { $tasks{$b} <=> $tasks{$a}}  keys %tasks ) {
         my $value = $tasks{$key};
         my $hours = sprintf("%.2f",$value/60);
         $total += $hours;
-        print "| $key | $hours \n";
+
+        my $all_descs = "";
+        foreach my $desc_key ( keys %descs) {
+            if( $descs{$desc_key} eq $key ) {
+              $desc_key =~ s/^\s+|\s+$//;
+              $all_descs .= ($desc_key . ", " );  
+          }
+        }
+
+        printf "| $key| %5s | $all_descs \n", $hours;
         $key =~ s/^\s+|\s+$//;
 		  	$break += $hours if $key eq "break" or $key eq  "lunch" or $key eq "commute" ;
     }
     
-    print "| " . "-"x($task_max_length) . " | ----\n";
-    print "| Total without break". " "x($task_max_length-18)  . "| " . ($total-$break) . " \n";
+    print "| " . "-"x($task_max_length-2) . " | ----- |" . "-" x ($desc_max_length) . "\n";
+    my $space = " "x($task_max_length-15);
+    printf "| Total         %s| %5s \n" , $space, $total;
+    printf "| Total no break%s| %5s \n" , $space, $total-$break;
 
     close($wiki_fh);
 }
@@ -177,11 +201,18 @@ sub report {
 # substruct two time and return mins
 # 13:10 - 11:20 = 50
 sub timediff {
+    # curr_time, pre_time
     my ($t1_str,$t2_str) = @_;
+    if( $t1_str =~ /99:99/ ) {
+      $t1_str = strftime "%R", localtime;
+      # print "use current system time for 99:99\n";
+   } 
     $t1_str =~ /(\d{2}):(\d{2})/;
     my $t1_h = $1;
     my $t1_m = $2;
     my $t1 = ( $t1_h * 60 ) + $t1_m;
+
+    # if crr_time is 99:99, then it use the system current time.
 
     $t2_str =~ /(\d{2}):(\d{2})/;
     my $t2_h = $1;
@@ -192,14 +223,12 @@ sub timediff {
 }
 
 sub addtime { 
-    my ($task,$time) = @_;
+    my ($task,$time,$desc) = @_;
     if( not exists $tasks{$task} ) {
         $tasks{$task} = 0;
     }
-    if ( length($task) > $task_max_length ) {
-        $task_max_length = length($task);
-    }
     $tasks{$task}+= $time;
+    $descs{$desc} = $task if not $desc eq "";
 }
 
 
