@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 use POSIX qw(strftime);
+use Data::Dumper;
 
 # FIXME: DateTime not work for perl 5.8.8
 #use DateTime;

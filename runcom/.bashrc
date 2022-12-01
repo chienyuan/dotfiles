@@ -58,6 +58,7 @@ export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:/usr/local/go/bin:$PATH"
 export NOTE_DIR="$HOME/Dropbox/Notes"
+export TIMELOG_DIR="$HOME/Dropbox/vimwiki/diary"
 
 eval "$(direnv hook bash)"
 
