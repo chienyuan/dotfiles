@@ -7,9 +7,6 @@
 [submodule "vim/.vim/pack/eric/start/winresizer"]
 	path = vim/.vim/pack/eric/start/winresizer
 	url = https://github.com/simeji/winresizer.git
-[submodule "vim/.vim/pack/eric/start/fzf"]
-	path = vim/.vim/pack/eric/start/fzf
-	url = https://github.com/junegunn/fzf.vim.git
 [submodule "vim/.vim/pack/eric/start/tla"]
 	path = vim/.vim/pack/eric/start/tla
 	url = https://github.com/hwayne/tla.vim.git
@@ -31,3 +28,6 @@
 [submodule "vim/.vim/pack/eric/start/lightline"]
 	path = vim/.vim/pack/eric/start/lightline
 	url = https://github.com/itchyny/lightline.vim.git
+[submodule "vim/.vim/pack/eric/start/perldoc-vim"]
+	path = vim/.vim/pack/eric/start/perldoc-vim
+	url = https://github.com/hotchpotch/perldoc-vim.git

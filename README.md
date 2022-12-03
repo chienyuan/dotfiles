@@ -31,7 +31,7 @@ git submodule init
 git submodule add https://github.com/preservim/nerdtree.git vim/.vim/pack/eric/start/nerdtree
 git submodule add https://github.com/moll/vim-bbye.git      vim/.vim/pack/eric/start/vim-bbye
 git submodule add https://github.com/simeji/winresizer.git  vim/.vim/pack/eric/start/winresizer
-git submodule add https://github.com/junegunn/fzf.vim.git   vim/.vim/pack/eric/start/fzf
+git submodule add https://github.com/junegunn/fzf.vim.git   vim/.vim/pack/eric/start/fzf.vim
 git submodule add https://github.com/hwayne/tla.vim.git     vim/.vim/pack/eric/start/tla
 git submodule add https://github.com/tomtom/tlib_vim.git vim/.vim/pack/eric/start/tlib_vim
 git submodule add https://github.com/MarcWeber/vim-addon-mw-utils.git vim/.vim/pack/eric/start/vim-addon-mw-utils
@@ -39,6 +39,7 @@ git submodule add https://github.com/garbas/vim-snipmate.git vim/.vim/pack/eric/
 git submodule add https://github.com/honza/vim-snippets.git vim/.vim/pack/eric/start/vim-snippets
 git submodule add https://github.com/hwayne/tla.vim.git vim/.vim/pack/eric/start/tla.vim
 git submodule add https://github.com/itchyny/lightline.vim.git vim/.vim/pack/eric/start/lightline
+git submodule add  -f https://github.com/hotchpotch/perldoc-vim.git vim/.vim/pack/eric/start/perldoc-vim
 sudo apt install fzf
 brew install fzf
 git commit
