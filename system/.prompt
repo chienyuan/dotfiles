@@ -1,5 +1,14 @@
 ## Prompt
 
+# Determine active Python virtualenv details.
+function set_virtualenv () {
+  if test -z "$VIRTUAL_ENV" ; then
+      PYTHON_VIRTUALENV=""
+  else
+      PYTHON_VIRTUALENV="${BLUE}[`basename \"$VIRTUAL_ENV\"`]${COLOR_NONE} "
+  fi
+}
+
 _bash_prompt_config() {
 
   local USER_SYMBOL="\u"
@@ -85,18 +94,23 @@ bash_prompt_command() {
   # Parse Git branch name
   P_GIT=$(parse_git_branch)
 
+  # Parse Python venv
+  set_virtualenv
+
   # Exit code
   if [[ $EXIT_CODE != 0 ]]; then
     P_EXIT+="${P_RED}✘ "
   fi
 
-  PS1="${P_EXIT}${P_USER}${P_WHITE}@${P_HOST} ${P_YELLOW}${P_PWD}${P_GREEN}${P_GIT}${P_YELLOW} ❯ ${P_RESET}"
+
+  PS1="$PYTHON_VIRTUALENV${P_EXIT}${P_USER}${P_WHITE}@${P_HOST} ${P_YELLOW}${P_PWD}${P_GREEN}${P_GIT}${P_YELLOW} ❯ ${P_RESET}"
 }
 
 parse_git_branch() {
   local OUT=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
   if [ "$OUT" != "" ]; then echo " $OUT"; fi
 }
+
 
 _bash_prompt_config
 unset _bash_prompt_config
